@@ -1,0 +1,50 @@
+﻿<Page x:Class="ControlCards.Pages.PageDetail"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ControlCards.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="1050" d:DesignWidth="1680"
+      Title="PageDetail">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0*" Name="SearchMargin"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Детали" Name="txtTitle" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Style="{StaticResource StyleTxtSubtitle}"/>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Name="SearchPanel" Grid.Row="1" Visibility="Hidden" Margin="10,0,0,-10">
+            <TextBlock Text="Поиск по названию детали:" Style="{StaticResource StyleTxt}" Width="auto" HorizontalAlignment="Left" Margin="15,0,0,-5"/>
+            <TextBox Name="txbDet" TextChanged="txbPos_TextChanged" Style="{StaticResource StyleTxb}" Width="400"/>
+        </StackPanel>
+        <DataGrid Name="dtgDetail" Style="{StaticResource StyleDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Width="auto" Binding="{Binding IdDetail}"/>
+                <DataGridTextColumn Header="Деталь" Width="0.7*" Binding="{Binding Title}"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить" Name="MenuAddItem" Click="MenuAddItem_Click"/>
+                    <MenuItem Header="Редактировать" Name="MenuEditItem" Click="MenuEditItem_Click"/>
+                    <MenuItem Header="Обновить" Name="MenuUpdateItem" Click="MenuUpdateItem_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Сортировка по названию детали">
+                        <MenuItem Header="От А до Я" Name="MenuSortASC" Click="MenuSortASC_Click"/>
+                        <MenuItem Header="От Я до А" Name="MenuSortDESC" Click="MenuSortDESC_Click"/>
+                        <Separator/>
+                        <MenuItem Header="Cброс" Click="MenuSortFiltСlear_Click"/>
+                    </MenuItem>
+                    <MenuItem Header="Поиск" Name="MenuSearch" Click="MenuSearch_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Удалить" Name="MenuDelSubs" Click="MenuDelItem_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="2" Margin="0,0,0,-50">
+            <TextBlock Text="Количество записей: " TextAlignment="Right" Margin="15,0,0,-7" Style="{StaticResource styleTextBlock}" FontSize="30"/>
+            <TextBlock Name="txtCountRows" Style="{StaticResource styleTextBlock}" FontSize="30"/>
+        </StackPanel>
+    </Grid>
+</Page>

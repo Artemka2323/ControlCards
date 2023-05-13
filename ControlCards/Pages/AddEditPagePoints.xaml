@@ -1,0 +1,38 @@
+﻿<Page x:Class="ControlCards.Pages.AddEditPagePoints"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ControlCards.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="1050" d:DesignWidth="1680"
+      Title="AddEditPagePoints">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Добавление нового пункта" Style="{StaticResource StyleTxtSubtitle}" Name="Titletxt"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="15">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Название раздела:" Style="{StaticResource StyleTxt}" Width="auto" HorizontalAlignment="Left" Margin="7,0,0,0"/>
+                <ComboBox SelectedValue="{Binding IdSection}" Name="CMBSection" Style="{StaticResource StyleCmb}" Width="600"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                <TextBlock Text="Название пункта:" Style="{StaticResource StyleTxt}" Width="250"/>
+                <TextBox Text="{Binding Title}" Style="{StaticResource StyleTxb}"/>
+            </StackPanel>
+            <Separator Opacity="0" Height="25"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Grid.Row="2" >
+                <Button Style="{StaticResource StyleBtn}" Content="Добавить" Name="BtnAdd" Click="BtnAdd_Click" Margin="20"/>
+                <Button Style="{StaticResource StyleBtn}" Content="Отмена" Name="BtnCancel" Click="BtnCancel_Click" Margin="20"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

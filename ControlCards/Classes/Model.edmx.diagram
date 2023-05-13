@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="066a6e702c484f6a8471d95300e2562f" Name="Diagram1">
+        <EntityTypeShape EntityType="ControlCardMalchikModel.Answer" Width="1.5" PointX="9.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.Authorizations" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.ControlCard" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.Detail" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.Pattern" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.Points" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.Sections" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.SPP" Width="1.5" PointX="9.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ControlCardMalchikModel.TypeUsers" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK__Answer__IdAuthor__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_Answer_ControlCard" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_Answer_Points" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK__Authoriza__IdTyp__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK__ControlCa__IdPat__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK__Pattern__IdDetai__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_Sections_Pattern" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_SP_Pattern" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_Points_Sections" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_SPP_Points" ManuallyRouted="false" />
+        <AssociationConnector Association="ControlCardMalchikModel.FK_SP_Sections" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

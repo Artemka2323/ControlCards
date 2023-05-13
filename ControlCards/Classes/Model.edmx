@@ -1,0 +1,707 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище ControlCardMalchikModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="IdAnswer" />
+          </Key>
+          <Property Name="IdAnswer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPoint" Type="int" />
+          <Property Name="IdAuthorizations" Type="int" />
+          <Property Name="IdControlCard" Type="int" />
+          <Property Name="Title" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Authorizations">
+          <Key>
+            <PropertyRef Name="IdAuthorizations" />
+          </Key>
+          <Property Name="IdAuthorizations" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTypeUsers" Type="int" />
+          <Property Name="Logins" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Passwords" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ControlCard">
+          <Key>
+            <PropertyRef Name="IdControlCard" />
+          </Key>
+          <Property Name="IdControlCard" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPattern" Type="int" />
+          <Property Name="SerialNumber" Type="nvarchar(max)" />
+          <Property Name="FactoryNumber" Type="nvarchar(max)" />
+          <Property Name="DateOfAcceptance" Type="date" />
+        </EntityType>
+        <EntityType Name="Detail">
+          <Key>
+            <PropertyRef Name="IdDetail" />
+          </Key>
+          <Property Name="IdDetail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pattern">
+          <Key>
+            <PropertyRef Name="IdPattern" />
+          </Key>
+          <Property Name="IdPattern" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="IdDetail" Type="int" />
+        </EntityType>
+        <EntityType Name="Points">
+          <Key>
+            <PropertyRef Name="IdPoints" />
+          </Key>
+          <Property Name="IdPoints" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="IdSection" Type="int" />
+        </EntityType>
+        <EntityType Name="Sections">
+          <Key>
+            <PropertyRef Name="IdSections" />
+          </Key>
+          <Property Name="IdSections" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="IdPattern" Type="int" />
+        </EntityType>
+        <EntityType Name="SPP">
+          <Key>
+            <PropertyRef Name="IdSecPat" />
+          </Key>
+          <Property Name="IdSecPat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPattern" Type="int" />
+          <Property Name="IdSections" Type="int" />
+          <Property Name="IdPoints" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypeUsers">
+          <Key>
+            <PropertyRef Name="IdTypeUsers" />
+          </Key>
+          <Property Name="IdTypeUsers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Answer__IdAuthor__31EC6D26">
+          <End Role="Authorizations" Type="Self.Authorizations" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authorizations">
+              <PropertyRef Name="IdAuthorizations" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="IdAuthorizations" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__IdTyp__35BCFE0A">
+          <End Role="TypeUsers" Type="Self.TypeUsers" Multiplicity="0..1" />
+          <End Role="Authorizations" Type="Self.Authorizations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeUsers">
+              <PropertyRef Name="IdTypeUsers" />
+            </Principal>
+            <Dependent Role="Authorizations">
+              <PropertyRef Name="IdTypeUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ControlCa__IdPat__36B12243">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="0..1" />
+          <End Role="ControlCard" Type="Self.ControlCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="IdPattern" />
+            </Principal>
+            <Dependent Role="ControlCard">
+              <PropertyRef Name="IdPattern" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pattern__IdDetai__37A5467C">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="0..1" />
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="IdDetail" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_ControlCard">
+          <End Role="ControlCard" Type="Self.ControlCard" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlCard">
+              <PropertyRef Name="IdControlCard" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="IdControlCard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Points">
+          <End Role="Points" Type="Self.Points" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Points">
+              <PropertyRef Name="IdPoints" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="IdPoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Points_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="0..1" />
+          <End Role="Points" Type="Self.Points" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="IdSections" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="IdSection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sections_Pattern">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="0..1" />
+          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="IdPattern" />
+            </Principal>
+            <Dependent Role="Sections">
+              <PropertyRef Name="IdPattern" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SP_Pattern">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="0..1" />
+          <End Role="SPP" Type="Self.SPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="IdPattern" />
+            </Principal>
+            <Dependent Role="SPP">
+              <PropertyRef Name="IdPattern" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SP_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="0..1" />
+          <End Role="SPP" Type="Self.SPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="IdSections" />
+            </Principal>
+            <Dependent Role="SPP">
+              <PropertyRef Name="IdSections" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPP_Points">
+          <End Role="Points" Type="Self.Points" Multiplicity="0..1" />
+          <End Role="SPP" Type="Self.SPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Points">
+              <PropertyRef Name="IdPoints" />
+            </Principal>
+            <Dependent Role="SPP">
+              <PropertyRef Name="IdPoints" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ControlCardMalchikModelContainer">
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authorizations" EntityType="Self.Authorizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ControlCard" EntityType="Self.ControlCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Detail" EntityType="Self.Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pattern" EntityType="Self.Pattern" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Points" EntityType="Self.Points" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sections" EntityType="Self.Sections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SPP" EntityType="Self.SPP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeUsers" EntityType="Self.TypeUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Answer__IdAuthor__31EC6D26" Association="Self.FK__Answer__IdAuthor__31EC6D26">
+            <End Role="Authorizations" EntitySet="Authorizations" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__IdTyp__35BCFE0A" Association="Self.FK__Authoriza__IdTyp__35BCFE0A">
+            <End Role="TypeUsers" EntitySet="TypeUsers" />
+            <End Role="Authorizations" EntitySet="Authorizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ControlCa__IdPat__36B12243" Association="Self.FK__ControlCa__IdPat__36B12243">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="ControlCard" EntitySet="ControlCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pattern__IdDetai__37A5467C" Association="Self.FK__Pattern__IdDetai__37A5467C">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_ControlCard" Association="Self.FK_Answer_ControlCard">
+            <End Role="ControlCard" EntitySet="ControlCard" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Points" Association="Self.FK_Answer_Points">
+            <End Role="Points" EntitySet="Points" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Points_Sections" Association="Self.FK_Points_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Points" EntitySet="Points" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sections_Pattern" Association="Self.FK_Sections_Pattern">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="Sections" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SP_Pattern" Association="Self.FK_SP_Pattern">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="SPP" EntitySet="SPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SP_Sections" Association="Self.FK_SP_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="SPP" EntitySet="SPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPP_Points" Association="Self.FK_SPP_Points">
+            <End Role="Points" EntitySet="Points" />
+            <End Role="SPP" EntitySet="SPP" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ControlCardMalchikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="IdAnswer" />
+          </Key>
+          <Property Name="IdAnswer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPoint" Type="Int32" />
+          <Property Name="IdAuthorizations" Type="Int32" />
+          <Property Name="IdControlCard" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Authorizations" Relationship="Self.FK__Answer__IdAuthor__31EC6D26" FromRole="Answer" ToRole="Authorizations" />
+          <NavigationProperty Name="ControlCard" Relationship="Self.FK_Answer_ControlCard" FromRole="Answer" ToRole="ControlCard" />
+          <NavigationProperty Name="Points" Relationship="Self.FK_Answer_Points" FromRole="Answer" ToRole="Points" />
+        </EntityType>
+        <EntityType Name="Authorizations">
+          <Key>
+            <PropertyRef Name="IdAuthorizations" />
+          </Key>
+          <Property Name="IdAuthorizations" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTypeUsers" Type="Int32" />
+          <Property Name="Logins" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Passwords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Answer" Relationship="Self.FK__Answer__IdAuthor__31EC6D26" FromRole="Authorizations" ToRole="Answer" />
+          <NavigationProperty Name="TypeUsers" Relationship="Self.FK__Authoriza__IdTyp__35BCFE0A" FromRole="Authorizations" ToRole="TypeUsers" />
+        </EntityType>
+        <EntityType Name="ControlCard">
+          <Key>
+            <PropertyRef Name="IdControlCard" />
+          </Key>
+          <Property Name="IdControlCard" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPattern" Type="Int32" />
+          <Property Name="SerialNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfAcceptance" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Answer" Relationship="Self.FK_Answer_ControlCard" FromRole="ControlCard" ToRole="Answer" />
+          <NavigationProperty Name="Pattern" Relationship="Self.FK__ControlCa__IdPat__36B12243" FromRole="ControlCard" ToRole="Pattern" />
+        </EntityType>
+        <EntityType Name="Detail">
+          <Key>
+            <PropertyRef Name="IdDetail" />
+          </Key>
+          <Property Name="IdDetail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pattern" Relationship="Self.FK__Pattern__IdDetai__37A5467C" FromRole="Detail" ToRole="Pattern" />
+        </EntityType>
+        <EntityType Name="Pattern">
+          <Key>
+            <PropertyRef Name="IdPattern" />
+          </Key>
+          <Property Name="IdPattern" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdDetail" Type="Int32" />
+          <NavigationProperty Name="ControlCard" Relationship="Self.FK__ControlCa__IdPat__36B12243" FromRole="Pattern" ToRole="ControlCard" />
+          <NavigationProperty Name="Detail" Relationship="Self.FK__Pattern__IdDetai__37A5467C" FromRole="Pattern" ToRole="Detail" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Pattern" FromRole="Pattern" ToRole="Sections" />
+          <NavigationProperty Name="SPP" Relationship="Self.FK_SP_Pattern" FromRole="Pattern" ToRole="SPP" />
+        </EntityType>
+        <EntityType Name="Points">
+          <Key>
+            <PropertyRef Name="IdPoints" />
+          </Key>
+          <Property Name="IdPoints" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdSection" Type="Int32" />
+          <NavigationProperty Name="Answer" Relationship="Self.FK_Answer_Points" FromRole="Points" ToRole="Answer" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK_Points_Sections" FromRole="Points" ToRole="Sections" />
+          <NavigationProperty Name="SPP" Relationship="Self.FK_SPP_Points" FromRole="Points" ToRole="SPP" />
+        </EntityType>
+        <EntityType Name="Sections">
+          <Key>
+            <PropertyRef Name="IdSections" />
+          </Key>
+          <Property Name="IdSections" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdPattern" Type="Int32" />
+          <NavigationProperty Name="Pattern" Relationship="Self.FK_Sections_Pattern" FromRole="Sections" ToRole="Pattern" />
+          <NavigationProperty Name="Points" Relationship="Self.FK_Points_Sections" FromRole="Sections" ToRole="Points" />
+          <NavigationProperty Name="SPP" Relationship="Self.FK_SP_Sections" FromRole="Sections" ToRole="SPP" />
+        </EntityType>
+        <EntityType Name="SPP">
+          <Key>
+            <PropertyRef Name="IdSecPat" />
+          </Key>
+          <Property Name="IdSecPat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPattern" Type="Int32" />
+          <Property Name="IdSections" Type="Int32" />
+          <Property Name="IdPoints" Type="Int32" />
+          <NavigationProperty Name="Pattern" Relationship="Self.FK_SP_Pattern" FromRole="SPP" ToRole="Pattern" />
+          <NavigationProperty Name="Points" Relationship="Self.FK_SPP_Points" FromRole="SPP" ToRole="Points" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK_SP_Sections" FromRole="SPP" ToRole="Sections" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypeUsers">
+          <Key>
+            <PropertyRef Name="IdTypeUsers" />
+          </Key>
+          <Property Name="IdTypeUsers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Authorizations" Relationship="Self.FK__Authoriza__IdTyp__35BCFE0A" FromRole="TypeUsers" ToRole="Authorizations" />
+        </EntityType>
+        <Association Name="FK__Answer__IdAuthor__31EC6D26">
+          <End Role="Authorizations" Type="Self.Authorizations" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authorizations">
+              <PropertyRef Name="IdAuthorizations" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="IdAuthorizations" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_ControlCard">
+          <End Role="ControlCard" Type="Self.ControlCard" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ControlCard">
+              <PropertyRef Name="IdControlCard" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="IdControlCard" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Points">
+          <End Role="Points" Type="Self.Points" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Points">
+              <PropertyRef Name="IdPoints" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="IdPoint" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authoriza__IdTyp__35BCFE0A">
+          <End Role="TypeUsers" Type="Self.TypeUsers" Multiplicity="0..1" />
+          <End Role="Authorizations" Type="Self.Authorizations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeUsers">
+              <PropertyRef Name="IdTypeUsers" />
+            </Principal>
+            <Dependent Role="Authorizations">
+              <PropertyRef Name="IdTypeUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ControlCa__IdPat__36B12243">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="0..1" />
+          <End Role="ControlCard" Type="Self.ControlCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="IdPattern" />
+            </Principal>
+            <Dependent Role="ControlCard">
+              <PropertyRef Name="IdPattern" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pattern__IdDetai__37A5467C">
+          <End Role="Detail" Type="Self.Detail" Multiplicity="0..1" />
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Detail">
+              <PropertyRef Name="IdDetail" />
+            </Principal>
+            <Dependent Role="Pattern">
+              <PropertyRef Name="IdDetail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sections_Pattern">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="0..1" />
+          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="IdPattern" />
+            </Principal>
+            <Dependent Role="Sections">
+              <PropertyRef Name="IdPattern" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SP_Pattern">
+          <End Role="Pattern" Type="Self.Pattern" Multiplicity="0..1" />
+          <End Role="SPP" Type="Self.SPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pattern">
+              <PropertyRef Name="IdPattern" />
+            </Principal>
+            <Dependent Role="SPP">
+              <PropertyRef Name="IdPattern" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Points_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="0..1" />
+          <End Role="Points" Type="Self.Points" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="IdSections" />
+            </Principal>
+            <Dependent Role="Points">
+              <PropertyRef Name="IdSection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SPP_Points">
+          <End Role="Points" Type="Self.Points" Multiplicity="0..1" />
+          <End Role="SPP" Type="Self.SPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Points">
+              <PropertyRef Name="IdPoints" />
+            </Principal>
+            <Dependent Role="SPP">
+              <PropertyRef Name="IdPoints" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SP_Sections">
+          <End Role="Sections" Type="Self.Sections" Multiplicity="0..1" />
+          <End Role="SPP" Type="Self.SPP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sections">
+              <PropertyRef Name="IdSections" />
+            </Principal>
+            <Dependent Role="SPP">
+              <PropertyRef Name="IdSections" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ControlCardMalchikEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answer" EntityType="Self.Answer" />
+          <EntitySet Name="Authorizations" EntityType="Self.Authorizations" />
+          <EntitySet Name="ControlCard" EntityType="Self.ControlCard" />
+          <EntitySet Name="Detail" EntityType="Self.Detail" />
+          <EntitySet Name="Pattern" EntityType="Self.Pattern" />
+          <EntitySet Name="Points" EntityType="Self.Points" />
+          <EntitySet Name="Sections" EntityType="Self.Sections" />
+          <EntitySet Name="SPP" EntityType="Self.SPP" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TypeUsers" EntityType="Self.TypeUsers" />
+          <AssociationSet Name="FK__Answer__IdAuthor__31EC6D26" Association="Self.FK__Answer__IdAuthor__31EC6D26">
+            <End Role="Authorizations" EntitySet="Authorizations" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_ControlCard" Association="Self.FK_Answer_ControlCard">
+            <End Role="ControlCard" EntitySet="ControlCard" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Points" Association="Self.FK_Answer_Points">
+            <End Role="Points" EntitySet="Points" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authoriza__IdTyp__35BCFE0A" Association="Self.FK__Authoriza__IdTyp__35BCFE0A">
+            <End Role="TypeUsers" EntitySet="TypeUsers" />
+            <End Role="Authorizations" EntitySet="Authorizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ControlCa__IdPat__36B12243" Association="Self.FK__ControlCa__IdPat__36B12243">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="ControlCard" EntitySet="ControlCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pattern__IdDetai__37A5467C" Association="Self.FK__Pattern__IdDetai__37A5467C">
+            <End Role="Detail" EntitySet="Detail" />
+            <End Role="Pattern" EntitySet="Pattern" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sections_Pattern" Association="Self.FK_Sections_Pattern">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="Sections" EntitySet="Sections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SP_Pattern" Association="Self.FK_SP_Pattern">
+            <End Role="Pattern" EntitySet="Pattern" />
+            <End Role="SPP" EntitySet="SPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Points_Sections" Association="Self.FK_Points_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="Points" EntitySet="Points" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SPP_Points" Association="Self.FK_SPP_Points">
+            <End Role="Points" EntitySet="Points" />
+            <End Role="SPP" EntitySet="SPP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SP_Sections" Association="Self.FK_SP_Sections">
+            <End Role="Sections" EntitySet="Sections" />
+            <End Role="SPP" EntitySet="SPP" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ControlCardMalchikModelContainer" CdmEntityContainer="ControlCardMalchikEntities">
+          <EntitySetMapping Name="Answer">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="IdAnswer" ColumnName="IdAnswer" />
+                <ScalarProperty Name="IdPoint" ColumnName="IdPoint" />
+                <ScalarProperty Name="IdAuthorizations" ColumnName="IdAuthorizations" />
+                <ScalarProperty Name="IdControlCard" ColumnName="IdControlCard" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorizations">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.Authorizations">
+              <MappingFragment StoreEntitySet="Authorizations">
+                <ScalarProperty Name="IdAuthorizations" ColumnName="IdAuthorizations" />
+                <ScalarProperty Name="IdTypeUsers" ColumnName="IdTypeUsers" />
+                <ScalarProperty Name="Logins" ColumnName="Logins" />
+                <ScalarProperty Name="Passwords" ColumnName="Passwords" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlCard">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.ControlCard">
+              <MappingFragment StoreEntitySet="ControlCard">
+                <ScalarProperty Name="IdControlCard" ColumnName="IdControlCard" />
+                <ScalarProperty Name="IdPattern" ColumnName="IdPattern" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="FactoryNumber" ColumnName="FactoryNumber" />
+                <ScalarProperty Name="DateOfAcceptance" ColumnName="DateOfAcceptance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Detail">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.Detail">
+              <MappingFragment StoreEntitySet="Detail">
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pattern">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.Pattern">
+              <MappingFragment StoreEntitySet="Pattern">
+                <ScalarProperty Name="IdPattern" ColumnName="IdPattern" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IdDetail" ColumnName="IdDetail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Points">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.Points">
+              <MappingFragment StoreEntitySet="Points">
+                <ScalarProperty Name="IdPoints" ColumnName="IdPoints" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IdSection" ColumnName="IdSection" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.Sections">
+              <MappingFragment StoreEntitySet="Sections">
+                <ScalarProperty Name="IdSections" ColumnName="IdSections" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IdPattern" ColumnName="IdPattern" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SPP">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.SPP">
+              <MappingFragment StoreEntitySet="SPP">
+                <ScalarProperty Name="IdSecPat" ColumnName="IdSecPat" />
+                <ScalarProperty Name="IdPattern" ColumnName="IdPattern" />
+                <ScalarProperty Name="IdSections" ColumnName="IdSections" />
+                <ScalarProperty Name="IdPoints" ColumnName="IdPoints" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeUsers">
+            <EntityTypeMapping TypeName="ControlCardMalchikModel.TypeUsers">
+              <MappingFragment StoreEntitySet="TypeUsers">
+                <ScalarProperty Name="IdTypeUsers" ColumnName="IdTypeUsers" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
